@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +13,9 @@ public class Hover : MonoBehaviour
     float duration = 1f;
     bool scalingUp;
 
-    public bool hoveringOver;
-    [HideInInspector] public bool holdingItem;
-     public bool shrinkToSize;
+    //public bool hoveringOver;
+    public bool canSelect;
+    
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -23,25 +25,20 @@ public class Hover : MonoBehaviour
 
     protected void Update()
     {
-        if (ItemData.Instance.hoverOver != this.gameObject && shrinkToSize)
-        {
-           // ScaleToSize();
-        }
-       
-        if (ItemData.Instance.hoverOver == this.gameObject)
+        if (ItemData.Instance.hoverOver == this.gameObject && canSelect)
         {
             Selectable();
         }
+        else if(transform.localScale != startingScale)
+        {
+            ScaleToSize();
+        }  
     }
 
     public void Selectable( )
     {
-        
-            shrinkToSize = false;
-
             if (scalingUp)
             {
-            
                transform.localScale = Vector3.Lerp(transform.localScale, maxScale, duration * Time.deltaTime);
             }
             else
@@ -59,12 +56,8 @@ public class Hover : MonoBehaviour
 
     void ScaleToSize()
     {
-
-        print("Feest");
         float a = startingScale.x - transform.localScale.x;
         float b = transform.localScale.x - startingScale.x;
-
-      //  hoveringOver = false;
 
         if (a < -0.005f || b > 0.005f)
         {
@@ -74,14 +67,8 @@ public class Hover : MonoBehaviour
         else
         {
             transform.localScale = startingScale;
-           
         }
     }
 
-    public void DisableScaling()
-    {
-        hoveringOver = false;
-        shrinkToSize = false;
-        GetComponent<Collider>().enabled = false;
-    }
+   
 }
