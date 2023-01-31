@@ -19,8 +19,9 @@ public class PutItemOnCar : MonoBehaviour
     {
         if(this.transform.gameObject == ItemData.Instance.holdingActualItem && Vector3.Distance(transform.position, returnLocation) < 1.5f)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && ItemData.Instance.holdingItem != ItemData.HoldingItem.EMPTY)
             {
+                print("also holding item");
                 ItemData.Instance.holdingActualItem.GetComponent<ItemBase>().holdingItem = false;
 
                 ItemData.Instance.holdingActualItem = null;

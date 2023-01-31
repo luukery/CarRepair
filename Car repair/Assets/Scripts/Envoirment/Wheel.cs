@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Wheel : ItemBase
 {
-   
-
    public bool onCar;
-    public bool brokenTire;
-
-  
+   public bool brokenTire;
 }

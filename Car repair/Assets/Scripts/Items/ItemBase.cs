@@ -5,12 +5,14 @@ using UnityEngine;
 public class ItemBase : Hover
 {
     public bool holdingItem;
+    PutItemOnCar returnScript;
 
     [HideInInspector] public Vector3 returnLocation;
     [HideInInspector] public Quaternion returnRotation;
 
     private void Awake()
     {
+        returnScript = GetComponent<PutItemOnCar>();
         returnLocation = transform.position;
         returnRotation = transform.rotation;
     }
@@ -21,9 +23,15 @@ public class ItemBase : Hover
 
         if (holdingItem)
         {
+            returnScript.enabled = true;
             print("Holding");
             Holding();
         }
+        else
+        {
+            returnScript.enabled = false;
+        }
+     
     }
     void Holding()
     {

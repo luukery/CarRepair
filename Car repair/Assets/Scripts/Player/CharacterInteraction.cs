@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class CharacterInteraction : MonoBehaviour
 {
     Camera cam;
@@ -12,6 +11,7 @@ public class CharacterInteraction : MonoBehaviour
     int repairLayer;
 
     RaycastHit hit;
+    Rigidbody rb;
 
   
     // Start is called before the first frame update
@@ -19,6 +19,7 @@ public class CharacterInteraction : MonoBehaviour
     {
         cam = Camera.main;
         range = 1.5f;
+        rb = GetComponent<Rigidbody>();
 
         itemLayer = LayerMask.GetMask("Item");
         carLayer = LayerMask.GetMask("CarPart");
@@ -62,20 +63,25 @@ public class CharacterInteraction : MonoBehaviour
             {
                 case "Wheel":
 
-                    
-
-                    if (ItemData.Instance.holdingItem == ItemData.HoldingItem.DRILL && ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar)  //you're holding the drill and you can remove the wheel from the car
+                    if (ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar)
                     {
-                        ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = true;
-                        print("HIT");
-
-                        if (Input.GetMouseButtonDown(0))
+                        if (ItemData.Instance.holdingItem == ItemData.HoldingItem.DRILL)  //you're holding the drill and you can remove the wheel from the car
                         {
-                            ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar = false;
-                         //   ItemData.Instance.hoverOver.GetComponent<Rigidbody>().isKinematic = false;
-                           // ItemData.Instance.hoverOver.GetComponent<Rigidbody>().useGravity = true;
-                            ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = false;
+                            ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = true;
+
+                            if (Input.GetMouseButtonDown(0))
+                            {
+                                ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar = !ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar;
+                                ItemData.Instance.hoverOver.GetComponent<ItemBase>().canSelect = !ItemData.Instance.hoverOver.GetComponent<ItemBase>().canSelect;
+
+                                if (!ItemData.Instance.hoverOver.GetComponent<Wheel>().brokenTire)
+                                {
+                                    ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar = false;
+                                    ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = false;
+                                }
+                            }
                         }
+                        
                     }
 
                     if (!ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar && ItemData.Instance.holdingItem == ItemData.HoldingItem.EMPTY ) //the wheel is not on the car anymore and your hands are empty
@@ -88,8 +94,6 @@ public class CharacterInteraction : MonoBehaviour
                             ItemData.Instance.hoverOver.GetComponent<Collider>().isTrigger = true;
                             ItemData.Instance.holdingActualItem = ItemData.Instance.hoverOver;
                             ItemData.Instance.holdingItem = ItemData.HoldingItem.WHEEL;
-
-
                         }
 
                     }
