@@ -11,7 +11,8 @@ public class CharacterInteraction : MonoBehaviour
     int repairLayer;
 
     RaycastHit hit;
-    Rigidbody rb;
+
+    bool cooldown;
 
   
     // Start is called before the first frame update
@@ -19,8 +20,6 @@ public class CharacterInteraction : MonoBehaviour
     {
         cam = Camera.main;
         range = 1.5f;
-        rb = GetComponent<Rigidbody>();
-
         itemLayer = LayerMask.GetMask("Item");
         carLayer = LayerMask.GetMask("CarPart");
         repairLayer = LayerMask.GetMask("Repair");
@@ -33,6 +32,7 @@ public class CharacterInteraction : MonoBehaviour
         {
             HUDData.Instance.SwitchMenu();
         }
+
         Raycast();
       
     }    
@@ -43,61 +43,58 @@ public class CharacterInteraction : MonoBehaviour
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, itemLayer))  //checks the layer "Items"
         {
             ItemBase ib = hit.transform.GetComponent<ItemBase>();
-            
-
-
             ItemData.Instance.hoverOver = ib.gameObject;
 
-            if (Input.GetMouseButtonDown(0) && ItemData.Instance.hoverOver.GetComponent<ItemBase>().canSelect)
+            if (Input.GetMouseButtonDown(0) && ib.canSelect)
             {
-                PickupItem();
+                ib.PickupItem(hit);
             }
         }
         #endregion
         #region wheelLayer
         else if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, carLayer)) //checks the layer "Carparts"
         {
-            ItemData.Instance.hoverOver = hit.transform.gameObject;
+            var ii = ItemData.Instance;
 
-            switch (ItemData.Instance.hoverOver.gameObject.tag)
+           
+            ii.hoverOver = hit.transform.gameObject;
+           
+
+            switch (ii.hoverOver.gameObject.tag)
             {
                 case "Wheel":
 
-                    if (ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar)
+                    if (!cooldown)
                     {
-                        if (ItemData.Instance.holdingItem == ItemData.HoldingItem.DRILL)  //you're holding the drill and you can remove the wheel from the car
+                        if (ii.holdingActualItem != ii.hoverOver && ii.holdingItem == ItemData.HoldingItem.DRILL) //the wheel is on the car
                         {
-                            ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = true;
+                            ii.hoverOver.GetComponent<Wheel>().canSelect = true;
+
+                            if (Input.GetMouseButtonDown(0))    //screw / unscrew the tire
+                            {
+                                StartCoroutine(Cooldown(2));
+                                ii.hoverOver.GetComponent<Wheel>().onCar = !ii.hoverOver.GetComponent<Wheel>().onCar;     //set sounds to lock and unlock the tire
+                                ii.hoverOver.GetComponent<ItemBase>().canSelect = !ii.hoverOver.GetComponent<ItemBase>().canSelect;
+                            }
+                        }
+                        else if (!ii.hoverOver.GetComponent<Wheel>().onCar && ii.holdingItem == ItemData.HoldingItem.EMPTY) //the wheel is not on the car anymore and your hands are empty
+                        {
+                            ii.hoverOver.GetComponent<Wheel>().canSelect = true;
 
                             if (Input.GetMouseButtonDown(0))
                             {
-                                ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar = !ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar;
-                                ItemData.Instance.hoverOver.GetComponent<ItemBase>().canSelect = !ItemData.Instance.hoverOver.GetComponent<ItemBase>().canSelect;
-
-                                if (!ItemData.Instance.hoverOver.GetComponent<Wheel>().brokenTire)
-                                {
-                                    ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar = false;
-                                    ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = false;
-                                }
+                                ii.hoverOver.transform.GetComponent<Wheel>().holdingItem = true;
+                                ii.hoverOver.GetComponent<Collider>().isTrigger = true;
+                                ii.holdingActualItem = ii.hoverOver;
+                                ii.holdingItem = ItemData.HoldingItem.WHEEL;
                             }
                         }
-                        
-                    }
-
-                    if (!ItemData.Instance.hoverOver.GetComponent<Wheel>().onCar && ItemData.Instance.holdingItem == ItemData.HoldingItem.EMPTY ) //the wheel is not on the car anymore and your hands are empty
-                    {
-                        ItemData.Instance.hoverOver.GetComponent<Wheel>().canSelect = true;
-
-                        if (Input.GetMouseButtonDown(0))
+                        else //you can't do anything with it
                         {
-                            ItemData.Instance.hoverOver.transform.GetComponent<Wheel>().holdingItem = true;
-                            ItemData.Instance.hoverOver.GetComponent<Collider>().isTrigger = true;
-                            ItemData.Instance.holdingActualItem = ItemData.Instance.hoverOver;
-                            ItemData.Instance.holdingItem = ItemData.HoldingItem.WHEEL;
+                            ii.hoverOver.GetComponent<Wheel>().canSelect = false;
                         }
-
                     }
-
+                  
                     break;
             }
         }
@@ -118,35 +115,18 @@ public class CharacterInteraction : MonoBehaviour
             }
         }
 
-
-
-
-
         if (!hit.transform)
         {
             ItemData.Instance.hoverOver = null;
         }
-
     }
 
-    void PickupItem()
+    
+
+    IEnumerator Cooldown(int time )
     {
-        if(ItemData.Instance.holdingItem == ItemData.HoldingItem.EMPTY)
-        {
-            string tag = hit.transform.tag;
-            ItemData.Instance.hoverOver.GetComponent<ItemBase>().holdingItem = true;
-             switch (tag)    //set the instance to what you're holding
-            {
-                case "Drill":
-                    ItemData.Instance.holdingItem = ItemData.HoldingItem.DRILL;
-                    ItemData.Instance.holdingActualItem = ItemData.Instance.hoverOver.gameObject;
-                    break;
-            }
-        }
-        else
-        {
-            print("You have your hands full");
-        }
-       
+        cooldown = true;
+        yield return new WaitForSeconds(time);
+        cooldown = false;
     }
 }

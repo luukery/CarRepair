@@ -15,10 +15,4 @@ public class ItemData : ItemManager<ItemData>
     public HoldingItem holdingItem;
     public GameObject holdingActualItem;
     public Transform holdLocation;
-
-    
-
-   
-
-
 }

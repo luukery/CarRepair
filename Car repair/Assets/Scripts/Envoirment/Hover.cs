@@ -13,7 +13,6 @@ public class Hover : MonoBehaviour
     float duration = 1f;
     bool scalingUp;
 
-    //public bool hoveringOver;
     public bool canSelect;
     
 
