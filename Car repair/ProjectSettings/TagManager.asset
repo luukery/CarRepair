@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Drill
   - Wheel
+  - Exterior
   layers:
   - Default
   - TransparentFX

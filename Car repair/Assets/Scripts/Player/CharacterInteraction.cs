@@ -54,7 +54,7 @@ public class CharacterInteraction : MonoBehaviour
         #region wheelLayer
         else if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, carLayer)) //checks the layer "Carparts"
         {
-            var ii = ItemData.Instance;
+            ItemData ii = ItemData.Instance;
 
            
             ii.hoverOver = hit.transform.gameObject;
@@ -83,10 +83,7 @@ public class CharacterInteraction : MonoBehaviour
 
                             if (Input.GetMouseButtonDown(0))
                             {
-                                ii.hoverOver.transform.GetComponent<Wheel>().holdingItem = true;
-                                ii.hoverOver.GetComponent<Collider>().isTrigger = true;
-                                ii.holdingActualItem = ii.hoverOver;
-                                ii.holdingItem = ItemData.HoldingItem.WHEEL;
+                                ii.hoverOver.GetComponent<Wheel>().PickupItem(hit);                                
                             }
                         }
                         else //you can't do anything with it
@@ -96,6 +93,14 @@ public class CharacterInteraction : MonoBehaviour
                     }
                   
                     break;
+
+                case "Exterior":
+                    ii.hoverOver.GetComponent<HoverRotation>().canSelect = true;
+
+
+                    break;
+
+
             }
         }
         #endregion
@@ -104,12 +109,11 @@ public class CharacterInteraction : MonoBehaviour
             ItemData.Instance.hoverOver = hit.transform.gameObject;
             if(ItemData.Instance.holdingItem == ItemData.HoldingItem.WHEEL && ItemData.Instance.holdingActualItem.GetComponent<Wheel>().brokenTire)
             {
-                print("Pick up new tire");
-                ItemData.Instance.hoverOver.GetComponent<Hover>().canSelect = true;
+                ItemData.Instance.hoverOver.GetComponent<HoverSize>().canSelect = true;
                 if (Input.GetMouseButtonDown(0))
                 {
                     ItemData.Instance.holdingActualItem.GetComponent<Wheel>().brokenTire = false;
-                    ItemData.Instance.hoverOver.GetComponent<Hover>().canSelect = false;
+                    ItemData.Instance.hoverOver.GetComponent<HoverSize>().canSelect = false;
 
                 }
             }
