@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class HoverRotation : MonoBehaviour
 {
-    public Quaternion maxRotation;
-    public Quaternion minRotation;
+    public Vector3 maxRotation;
+    public Vector3 minRotation;
+
+    float speed;
+
+
     public bool canSelect;
 
     Quaternion startRotation;
@@ -22,18 +26,24 @@ public class HoverRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (canSelect && ItemData.Instance.hoverOver == this.gameObject)
+        {
+            Selectable();
+        }
+        else if(transform.rotation != startRotation)
+        {
+            ScaleToSize();
+        }
     }
 
     void Selectable()
     {
         if (scalingUp)
         {
-            transform.rotation = Quaternion.Lerp(transform.localRotation, maxRotation, duration * Time.deltaTime);
+            
         }
         else
         {
-            transform.rotation = Quaternion.Lerp(transform.localRotation, minRotation, duration * Time.deltaTime);
         }
 
         if (transform.localRotation.x >= maxRotation.x - 0.15f || transform.localRotation.x <= minRotation.x + 0.15f)

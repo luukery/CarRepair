@@ -2501,7 +2501,7 @@ GameObject:
   - component: {fileID: 3402515976906020779}
   - component: {fileID: 1513745094028003518}
   - component: {fileID: 6393087244531394885}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: spoiler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2697,7 +2697,7 @@ GameObject:
   - component: {fileID: 9198383904848169687}
   - component: {fileID: 9198383904848169689}
   - component: {fileID: 9198383904848169690}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: door_front_L
   m_TagString: Exterior
   m_Icon: {fileID: 0}
@@ -3455,7 +3455,7 @@ GameObject:
   - component: {fileID: 6189661749883231620}
   - component: {fileID: 2388645399202227419}
   - component: {fileID: 7792270063402075502}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: hood
   m_TagString: Exterior
   m_Icon: {fileID: 0}
@@ -3516,7 +3516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf6a01ea89efa84cbcdb91d8c8c7721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRotation: {x: -0.08715574, y: 0, z: 0, w: 0.9961947}
+  maxRotation: {x: 0.0789268, y: 0.09406133, z: 0.09406111, w: -0.98796535}
   minRotation: {x: 0, y: 0, z: 0, w: 0}
   canSelect: 1
 --- !u!33 &8196858334486225484
@@ -3642,7 +3642,7 @@ GameObject:
   - component: {fileID: 847125049748363807}
   - component: {fileID: 3379246301943605583}
   - component: {fileID: 3854053729784520468}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: glass_front_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3799,7 +3799,7 @@ GameObject:
   - component: {fileID: 3420327027065747429}
   - component: {fileID: 3394276226723799067}
   - component: {fileID: 9005751724109238034}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Trunk
   m_TagString: Exterior
   m_Icon: {fileID: 0}
