@@ -97,6 +97,10 @@ public class CharacterInteraction : MonoBehaviour
                 case "Exterior":
                     ii.hoverOver.GetComponent<HoverRotation>().canSelect = true;
 
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        ii.hoverOver.GetComponent<HoverRotation>().open = !ii.hoverOver.GetComponent<HoverRotation>().open;
+                    }
 
                     break;
 

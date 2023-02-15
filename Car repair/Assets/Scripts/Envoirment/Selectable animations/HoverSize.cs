@@ -9,7 +9,8 @@ public class HoverSize : MonoBehaviour
     public float minScale;
     public bool canSelect;
 
-    Vector3 startingScale;
+    protected Vector3 startingScale;
+
     Vector3 ImaxScale;
     Vector3 IminScale;
 
@@ -41,11 +42,11 @@ public class HoverSize : MonoBehaviour
     {
         if (scalingUp)
         {
-
+            transform.localScale = Vector3.Lerp(transform.localScale, ImaxScale, duration * Time.deltaTime);
         }
         else
         {
-            //transform.localScale = Vector3.Lerp(transform.localScale, IminScale, duration * Time.deltaTime);
+            transform.localScale = Vector3.Lerp(transform.localScale, IminScale, duration * Time.deltaTime);
         }
 
         if (transform.localScale.x >= ImaxScale.x - 0.15f || transform.localScale.x <= IminScale.x + 0.15f)

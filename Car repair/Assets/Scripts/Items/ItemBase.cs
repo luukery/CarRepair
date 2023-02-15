@@ -5,8 +5,8 @@ using UnityEngine;
 public class ItemBase : HoverSize
 {
     public bool holdingItem;
-    bool canReturn;
 
+    bool canReturn;
     bool isAnimating;
 
     Vector3 returnLocation;
@@ -49,8 +49,6 @@ public class ItemBase : HoverSize
     {
         transform.position = ItemData.Instance.holdLocation.position;
         transform.rotation = ItemData.Instance.holdLocation.rotation;
-
-        
     }
 
     
@@ -61,10 +59,13 @@ public class ItemBase : HoverSize
         {
             if (ItemData.Instance.holdingItem == ItemData.HoldingItem.EMPTY)
             {
-                #region set components
+               
                 ItemData ii = ItemData.Instance;
 
+                
+
                 ii.holdingActualItem = hit.transform.gameObject;
+                ii.holdingActualItem.transform.localScale = startingScale;
 
                 if (GetComponent<Collider>() != null)
                 {
@@ -73,7 +74,7 @@ public class ItemBase : HoverSize
 
 
 
-                #endregion
+               
 
 
 
@@ -109,7 +110,7 @@ public class ItemBase : HoverSize
         ItemData.Instance.holdingItem = ItemData.HoldingItem.EMPTY;
 
         float elapsedTime = 0;
-        float waitTime = 0.5f;
+        float waitTime = 1f;
 
         while (elapsedTime < waitTime)
         {
@@ -132,13 +133,13 @@ public class ItemBase : HoverSize
     {
         isAnimating = true;        
         float elapsedTime = 0;
-        float waitTime = 0.5f;
+        float waitTime = 1f;
 
         while (elapsedTime < waitTime)
         {
             Quaternion rotation = ItemData.Instance.holdLocation.transform.rotation;
 
-            transform.position = Vector3.Lerp(transform.position, to.transform.position, elapsedTime / waitTime + 0.1f);
+            transform.position = Vector3.Lerp(transform.position, to.transform.position, (elapsedTime / waitTime));
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, elapsedTime / waitTime);
             elapsedTime += Time.deltaTime;
 
