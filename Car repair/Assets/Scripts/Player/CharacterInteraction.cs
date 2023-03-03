@@ -9,6 +9,7 @@ public class CharacterInteraction : MonoBehaviour
     int itemLayer;
     int carLayer;
     int repairLayer;
+    int motorBlockButtonLayer;
 
     RaycastHit hit;
 
@@ -23,6 +24,7 @@ public class CharacterInteraction : MonoBehaviour
         itemLayer = LayerMask.GetMask("Item");
         carLayer = LayerMask.GetMask("CarPart");
         repairLayer = LayerMask.GetMask("Repair");
+        motorBlockButtonLayer = LayerMask.GetMask("MotorBlockButton");
     }
 
     // Update is called once per frame
@@ -93,7 +95,7 @@ public class CharacterInteraction : MonoBehaviour
                     }
                   
                     break;
-
+               
                 case "Exterior":
                     ii.hoverOver.GetComponent<HoverRotation>().canSelect = true;
 
@@ -103,12 +105,11 @@ public class CharacterInteraction : MonoBehaviour
                     }
 
                     break;
-
-
             }
         }
         #endregion
-        else if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, repairLayer))
+        #region repairLayer
+        else if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, repairLayer))
         {
             ItemData.Instance.hoverOver = hit.transform.gameObject;
             if(ItemData.Instance.holdingItem == ItemData.HoldingItem.WHEEL && ItemData.Instance.holdingActualItem.GetComponent<Wheel>().brokenTire)
@@ -122,7 +123,17 @@ public class CharacterInteraction : MonoBehaviour
                 }
             }
         }
+        #endregion
+        #region motorblockButtonlayer
+        else if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, motorBlockButtonLayer))
+        {
+            ItemData.Instance.hoverOver = hit.transform.gameObject;
 
+        }
+        #endregion
+
+
+        //reset hover
         if (!hit.transform)
         {
             ItemData.Instance.hoverOver = null;
