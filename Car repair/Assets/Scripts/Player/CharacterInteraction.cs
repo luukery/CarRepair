@@ -10,6 +10,7 @@ public class CharacterInteraction : MonoBehaviour
     int carLayer;
     int repairLayer;
     int motorBlockButtonLayer;
+    int enginePartLayer;
 
     RaycastHit hit;
 
@@ -25,6 +26,7 @@ public class CharacterInteraction : MonoBehaviour
         carLayer = LayerMask.GetMask("CarPart");
         repairLayer = LayerMask.GetMask("Repair");
         motorBlockButtonLayer = LayerMask.GetMask("MotorBlockButton");
+        enginePartLayer = LayerMask.GetMask("EnginePart");
     }
 
     // Update is called once per frame
@@ -131,7 +133,18 @@ public class CharacterInteraction : MonoBehaviour
 
         }
         #endregion
+        #region enginePartLayer
+        else if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, enginePartLayer))
+        {
+            ItemData.Instance.hoverOver = hit.transform.gameObject;
 
+            if (Input.GetMouseButtonDown(0))
+            {
+                print("Hit");
+            }
+
+        }
+        #endregion
 
         //reset hover
         if (!hit.transform)

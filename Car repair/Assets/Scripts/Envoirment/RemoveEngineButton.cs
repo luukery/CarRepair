@@ -7,6 +7,7 @@ public class RemoveEngineButton : MonoBehaviour
     [SerializeField] HoverRotation hood;
     [SerializeField] Material selectMaterial;
     [SerializeField] GameObject engine;
+    [SerializeField] Collider[] engineColliders;
 
     Vector3 startPos;
     Vector3 engineStartPos;
@@ -14,7 +15,7 @@ public class RemoveEngineButton : MonoBehaviour
    Transform removedEngineLocation;
 
     bool hovering;
-    bool EngineOutSideOfCar;
+   [SerializeField] bool EngineInSideOfCar;
     bool hasBeenPressed;
     bool engineIsMoving;
     
@@ -30,7 +31,8 @@ public class RemoveEngineButton : MonoBehaviour
         if (!hood)
             Debug.LogError("Hood rotation script not found");
 
-        
+        EngineInSideOfCar = true;
+        SetEngineColliders(false);
 
         startPos = transform.position;
         engineStartPos = engine.transform.position;
@@ -73,6 +75,14 @@ public class RemoveEngineButton : MonoBehaviour
         if (rend.material != material) 
                 rend.material = material;
     }
+
+    void SetEngineColliders(bool set)
+    {
+        for (int i = 0; i < engineColliders.Length; i++)
+        {
+            engineColliders[i].enabled = set;
+        }
+    }
     
     IEnumerator PressedAnimation()
     {
@@ -84,7 +94,6 @@ public class RemoveEngineButton : MonoBehaviour
 
         while (engineIsMoving)
         {
-            print("waiting");
             yield return new WaitForEndOfFrame();
         }
        
@@ -98,33 +107,35 @@ public class RemoveEngineButton : MonoBehaviour
         engineIsMoving = true;
         Vector3 endlocation;
 
-        if (!EngineOutSideOfCar)
+        if (EngineInSideOfCar)
         {
             endlocation = removedEngineLocation.position;
         }
         else
         {
             endlocation = engineStartPos;
+            
         }
 
+        EngineInSideOfCar = !EngineInSideOfCar;
+
+
+
+        SetEngineColliders(false);
         while (Vector3.Distance(engine.transform.position, endlocation) > 0.001f)
         {
             yield return null;
-
-            print(Vector3.Distance(engine.transform.position, endlocation));
             engine.transform.position = Vector3.Slerp(engine.transform.position, endlocation, 3f * Time.deltaTime);
-
         }
 
         engine.transform.position = endlocation;
 
+        if(!EngineInSideOfCar)
+            SetEngineColliders(true);
 
-        EngineOutSideOfCar = !EngineOutSideOfCar;
+
+        
 
         engineIsMoving = false;
-
-
-
-
     }
 }
