@@ -37,6 +37,10 @@ public class CharacterInteraction : MonoBehaviour
             HUDData.Instance.SwitchMenu();
         }
 
+        if (hit.transform)
+        {
+          //  print(hit.transform.name);
+        }
         Raycast();
       
     }    
@@ -136,25 +140,46 @@ public class CharacterInteraction : MonoBehaviour
         #region enginePartLayer
         else if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, enginePartLayer))
         {
-            ItemData.Instance.hoverOver = hit.transform.gameObject;
-
-            if (Input.GetMouseButtonDown(0))
+            if (!ItemData.Instance.engineInsideOfCar)       //checks if the engine is still in the car
             {
-                print("Hit");
-            }
+                IEngine IE = (IEngine)hit.transform.GetComponent(typeof(IEngine));
+                CheckDoubleHover();
 
+                if (IE == null)
+                {
+                  //  Debug.LogError("Missing IEngine " + hit.transform.name);      //reactivate later
+                }
+                else
+                {
+                    IE.Hover(hit);                       //all the requirments are in the scripts themselves
+                   
+                }
+            }
         }
         #endregion
 
-        //reset hover
-        if (!hit.transform)
+       
+      
+      
+        if (!hit.transform)  //reset hover
         {
             ItemData.Instance.hoverOver = null;
         }
+
+
     }
 
-    
-
+    void CheckDoubleHover()     //if there are multiple items to scan on 1 GameObject, you can call this function to make sure the raycast keeps working,
+    {
+        if (hit.transform != null && ItemData.Instance.hoverOver != null)
+        {
+            if (hit.transform.gameObject != ItemData.Instance.hoverOver)
+            {
+               // print(hit.transform.gameObject.name + " & " + ItemData.Instance.hoverOver.name);
+                ItemData.Instance.hoverOver = null;
+            }
+        }
+    }
     IEnumerator Cooldown(int time )
     {
         cooldown = true;

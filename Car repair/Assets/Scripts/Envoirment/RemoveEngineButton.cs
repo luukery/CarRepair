@@ -15,7 +15,6 @@ public class RemoveEngineButton : MonoBehaviour
    Transform removedEngineLocation;
 
     bool hovering;
-   [SerializeField] bool EngineInSideOfCar;
     bool hasBeenPressed;
     bool engineIsMoving;
     
@@ -31,7 +30,7 @@ public class RemoveEngineButton : MonoBehaviour
         if (!hood)
             Debug.LogError("Hood rotation script not found");
 
-        EngineInSideOfCar = true;
+        ItemData.Instance.engineInsideOfCar = true;
         SetEngineColliders(false);
 
         startPos = transform.position;
@@ -107,7 +106,7 @@ public class RemoveEngineButton : MonoBehaviour
         engineIsMoving = true;
         Vector3 endlocation;
 
-        if (EngineInSideOfCar)
+        if (ItemData.Instance.engineInsideOfCar)
         {
             endlocation = removedEngineLocation.position;
         }
@@ -117,7 +116,7 @@ public class RemoveEngineButton : MonoBehaviour
             
         }
 
-        EngineInSideOfCar = !EngineInSideOfCar;
+        ItemData.Instance.engineInsideOfCar = !ItemData.Instance.engineInsideOfCar;
 
 
 
@@ -130,7 +129,7 @@ public class RemoveEngineButton : MonoBehaviour
 
         engine.transform.position = endlocation;
 
-        if(!EngineInSideOfCar)
+        if(!ItemData.Instance.engineInsideOfCar)
             SetEngineColliders(true);
 
 

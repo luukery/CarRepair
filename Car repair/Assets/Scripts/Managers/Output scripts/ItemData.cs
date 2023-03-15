@@ -8,11 +8,13 @@ public class ItemData : ItemManager<ItemData>
     {
         EMPTY,
         DRILL,
-        WHEEL
+        WHEEL,
+        WRENCH
     }
 
     public GameObject hoverOver;
     public HoldingItem holdingItem;
     public GameObject holdingActualItem;
     public Transform holdLocation;
+    public bool engineInsideOfCar;
 }
