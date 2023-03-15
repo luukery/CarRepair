@@ -3004,7 +3004,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148982793318}
   m_LocalRotation: {x: 1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -0, y: 0.013, z: 2.37}
+  m_LocalPosition: {x: 0.226, y: 0.013, z: 2.41}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3086,7 +3086,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652705201884}
-  - component: {fileID: 919132148982793319}
   m_Layer: 0
   m_Name: Engine
   m_TagString: Untagged
@@ -3094,27 +3093,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &919132148982793319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148982793318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 332880aa54d13524c819dfd7b9c1f9e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parts:
-  - name: Feest
-    partObject: {fileID: 3180148418819808581}
-    outline: {fileID: 0}
-    broken: 0
-  - name: Feest
-    partObject: {fileID: 3180148418819808581}
-    outline: {fileID: 0}
-    broken: 0
 --- !u!1 &919132149192791257
 GameObject:
   m_ObjectHideFlags: 0
@@ -4675,7 +4653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d912a55ded6cb46ac48c4a21cf38f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 1
 --- !u!114 &5403815039631080433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5506,7 +5483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d912a55ded6cb46ac48c4a21cf38f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
 --- !u!114 &7092343913089132776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6337,7 +6313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d912a55ded6cb46ac48c4a21cf38f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
 --- !u!114 &8230544850010024036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7046,7 +7021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d912a55ded6cb46ac48c4a21cf38f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
 --- !u!114 &8980813939051076710
 MonoBehaviour:
   m_ObjectHideFlags: 0
