@@ -47,7 +47,12 @@ public class ItemBase : HoverSize
     }
     void Holding()
     {
-        transform.position = ItemData.Instance.holdLocation.position;
+       // transform.position = ItemData.Instance.holdLocation.position;
+
+        transform.position = Vector3.MoveTowards(transform.position, ItemData.Instance.holdLocation.position, 10f * Time.deltaTime);
+
+
+
         transform.rotation = ItemData.Instance.holdLocation.rotation;
     }
 
@@ -59,11 +64,7 @@ public class ItemBase : HoverSize
         {
             if (ItemData.Instance.holdingItem == ItemData.HoldingItem.EMPTY)
             {
-               
                 ItemData ii = ItemData.Instance;
-
-                
-
                 ii.holdingActualItem = hit.transform.gameObject;
                 ii.holdingActualItem.transform.localScale = startingScale;
 
@@ -72,15 +73,8 @@ public class ItemBase : HoverSize
                     GetComponent<Collider>().isTrigger = true;
                 }
 
-
-
-               
-
-
-
                 string tag = hit.transform.tag;
                 StartCoroutine(MovingAnimationPickup(this.gameObject, ItemData.Instance.holdLocation.transform.gameObject));
-
 
                 switch (tag)
                 {
@@ -90,9 +84,11 @@ public class ItemBase : HoverSize
 
                     case "Wheel":
                         ItemData.Instance.holdingItem = ItemData.HoldingItem.WHEEL;
-
                         break;
 
+                    case "Wrench":
+                        ItemData.Instance.holdingItem = ItemData.HoldingItem.WRENCH;
+                        break;
                 }
             }
         }
