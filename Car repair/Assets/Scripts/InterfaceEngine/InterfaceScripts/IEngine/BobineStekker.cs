@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class BobineStekker : EnginePartBase, IEngine
 {
-    public void Update()
+    public Bonbine bonbine;
+    public void Interact()
     {
-
-        if (ItemData.Instance.hoverOver != this.gameObject)
-        {
-            outline.enabled = false;
-        }
-       
+        MoveObject(0f, 0, -0.1f);
     }
+
     public void Hover(RaycastHit hit)
     {
         ItemData.Instance.hoverOver = hit.transform.gameObject;
 
-
-        if (ItemData.Instance.holdingItem == ItemData.HoldingItem.EMPTY && !isPlaying)
+        if (ItemData.Instance.holdingItem == holdingRequirement && !isPlaying && !bonbine.hasMoved)
         {
             canInteract = true;
             outline.enabled = true;
@@ -29,20 +25,13 @@ public class BobineStekker : EnginePartBase, IEngine
             outline.enabled = false;
         }
 
-        if (Input.GetMouseButtonDown(0) && canInteract)
+        if (canInteract && !isPlaying)
         {
-            Interact();
+            if (Input.GetMouseButtonDown(0))
+            {
+                Interact();
+            }
         }
+
     }
-
-    public void Interact()
-    {
-        if (!isPlaying)
-        {
-            MoveObject(0f, 0, -0.1f);
-        }
-    }
-
-   
-
 }

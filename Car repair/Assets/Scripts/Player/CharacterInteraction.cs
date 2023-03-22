@@ -142,17 +142,13 @@ public class CharacterInteraction : MonoBehaviour
         {
             if (!ItemData.Instance.engineInsideOfCar)       //checks if the engine is still in the car
             {
-                IEngine IE = (IEngine)hit.transform.GetComponent(typeof(IEngine));
                 CheckDoubleHover();
 
-                if (IE == null)
+                IEngine ie = (IEngine)hit.transform.GetComponent(typeof(IEngine));
+
+                if(ie != null)
                 {
-                  //  Debug.LogError("Missing IEngine " + hit.transform.name);      //reactivate later
-                }
-                else
-                {
-                    IE.Hover(hit);                       //all the requirments are in the scripts themselves
-                   
+                    ie.Hover(hit);
                 }
             }
         }
@@ -175,7 +171,6 @@ public class CharacterInteraction : MonoBehaviour
         {
             if (hit.transform.gameObject != ItemData.Instance.hoverOver)
             {
-               // print(hit.transform.gameObject.name + " & " + ItemData.Instance.hoverOver.name);
                 ItemData.Instance.hoverOver = null;
             }
         }

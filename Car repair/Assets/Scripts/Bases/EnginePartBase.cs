@@ -13,8 +13,9 @@ public class EnginePartBase : MonoBehaviour
     protected Outline outline;
 
     Vector3 startPos;
-    bool hasMoved;
+   [HideInInspector] public bool hasMoved;
 
+   [SerializeField] protected ItemData.HoldingItem holdingRequirement;
 
 
     public void Start()
@@ -23,13 +24,28 @@ public class EnginePartBase : MonoBehaviour
         outline.enabled = false;
     }
 
+    public void Update()
+    {
+        if (ItemData.Instance.hoverOver != this.gameObject)
+        {
+            outline.enabled = false;
+        }
+    }
+
+   
+
     #region moveObject
     protected void MoveObject(float x, float y, float z)
     {
         isPlaying = true;
+
+        bool m = hasMoved;
+        hasMoved = !hasMoved;
+
+
         Vector3 moveTowards;
 
-        if (!hasMoved)
+        if (!m)
         {
             startPos = transform.position;
 
@@ -61,7 +77,6 @@ public class EnginePartBase : MonoBehaviour
         }
 
         transform.position = moveTwrds;
-        hasMoved = !hasMoved;
         isPlaying = false;
     }
     #endregion

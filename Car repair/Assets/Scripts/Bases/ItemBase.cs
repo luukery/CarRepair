@@ -47,12 +47,7 @@ public class ItemBase : HoverSize
     }
     void Holding()
     {
-       // transform.position = ItemData.Instance.holdLocation.position;
-
-        transform.position = Vector3.MoveTowards(transform.position, ItemData.Instance.holdLocation.position, 10f * Time.deltaTime);
-
-
-
+        transform.position = ItemData.Instance.holdLocation.position;
         transform.rotation = ItemData.Instance.holdLocation.rotation;
     }
 
