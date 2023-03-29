@@ -32,10 +32,7 @@ public class CharacterInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            HUDData.Instance.SwitchMenu();
-        }
+     
 
         if (hit.transform)
         {

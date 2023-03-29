@@ -88,7 +88,7 @@ public class RemoveEngineButton : MonoBehaviour
         hasBeenPressed = true;        
         transform.position = new Vector3(transform.position.x, transform.position.y - 0.05f, transform.position.z);
 
-        StartCoroutine(MoveEngineAnimation(  ));
+        StartCoroutine(MoveEngineAnimation());
         yield return new WaitForEndOfFrame();
 
         while (engineIsMoving)

@@ -34,4 +34,24 @@ public class BobineStekker : EnginePartBase, IEngine
         }
 
     }
+
+    public void OnEnable()
+    {
+        CheckCarButton.CheckCarParts += CheckPart;
+    }
+
+    public void OnDisable()
+    {
+        CheckCarButton.CheckCarParts -= CheckPart;
+    }
+
+    public void CheckPart()
+    {
+        CarData.Instance.amountOfParts++;
+
+        if(!hasMoved && !broken)
+        {
+            CarData.Instance.repairedParts++;
+        }
+    }
 }

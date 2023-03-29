@@ -35,4 +35,24 @@ public class Bonbine : EnginePartBase, IEngine
     {
         MoveObject(0, 0.5f, 0);
     }
+
+    public void OnEnable()
+    {
+        CheckCarButton.CheckCarParts += CheckPart;
+    }
+
+    public void OnDisable()
+    {
+        CheckCarButton.CheckCarParts -= CheckPart;
+    }
+
+    public void CheckPart()
+    {
+        CarData.Instance.amountOfParts++;
+
+        if (!hasMoved && !broken)
+        {
+            CarData.Instance.repairedParts++;
+        }
+    }
 }

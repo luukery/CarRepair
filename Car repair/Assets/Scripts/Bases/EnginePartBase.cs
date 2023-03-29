@@ -34,6 +34,8 @@ public class EnginePartBase : MonoBehaviour
 
    
 
+   
+
     #region moveObject
     protected void MoveObject(float x, float y, float z)
     {

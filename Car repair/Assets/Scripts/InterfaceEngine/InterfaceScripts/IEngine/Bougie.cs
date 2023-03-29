@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bougie : MonoBehaviour, IEngine
+public class Bougie : EnginePartBase, IEngine
 {
-    public Canvas choiceCanvas;
 
     public void Hover(RaycastHit hit)
     {
@@ -14,5 +13,25 @@ public class Bougie : MonoBehaviour, IEngine
     public void Interact()
     {
 
+    }
+
+    public void OnEnable()
+    {
+        CheckCarButton.CheckCarParts += CheckPart;
+    }
+
+    public void OnDisable()
+    {
+        CheckCarButton.CheckCarParts -= CheckPart;
+    }
+
+    public void CheckPart()
+    {
+        CarData.Instance.amountOfParts++;
+
+        if (!hasMoved && !broken)
+        {
+            CarData.Instance.repairedParts++;
+        }
     }
 }
