@@ -117,10 +117,8 @@ public class RemoveEngineButton : MonoBehaviour
         }
 
         ItemData.Instance.engineInsideOfCar = !ItemData.Instance.engineInsideOfCar;
-
-
-
         SetEngineColliders(false);
+
         while (Vector3.Distance(engine.transform.position, endlocation) > 0.001f)
         {
             yield return null;
@@ -131,9 +129,6 @@ public class RemoveEngineButton : MonoBehaviour
 
         if(!ItemData.Instance.engineInsideOfCar)
             SetEngineColliders(true);
-
-
-        
 
         engineIsMoving = false;
     }

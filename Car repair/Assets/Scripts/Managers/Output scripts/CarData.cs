@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CarData : CarManager<CarData>
 {
-    public int amountOfParts;
-    public int repairedParts;
+   [HideInInspector] public int amountOfParts;
+   [HideInInspector] public int repairedParts;
 
     public void CheckCar()
     {
@@ -15,9 +15,6 @@ public class CarData : CarManager<CarData>
     IEnumerator ActualCheckCar()
     {
         yield return new WaitForEndOfFrame();
-
-        print("amountOfParts = " + amountOfParts);
-        print("repairedParts = " + repairedParts);
 
         if(amountOfParts > repairedParts)
         {
