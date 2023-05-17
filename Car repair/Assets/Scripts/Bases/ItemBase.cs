@@ -34,24 +34,19 @@ public class ItemBase : HoverSize
             Holding();
         }
 
-        if (this.transform.gameObject == ItemData.Instance.holdingActualItem && Vector3.Distance(transform.position, returnLocation) < 1.5f /*&&*/ /*!animIsPlaying*/)
+        if (this.transform.gameObject == ItemData.Instance.holdingActualItem && Vector3.Distance(transform.position, returnLocation) < 1.5f)
         {
             if (canReturn && Input.GetMouseButtonDown(0))
 
                 if(!isAnimating)
                     StartCoroutine(MovingAnimationReturn(this.gameObject, returnLocation, returnRotation));
         }
-
-
-
     }
     void Holding()
     {
         transform.position = ItemData.Instance.holdLocation.position;
         transform.rotation = ItemData.Instance.holdLocation.rotation;
     }
-
-    
 
     public void PickupItem(RaycastHit hit)
     {
@@ -89,11 +84,8 @@ public class ItemBase : HoverSize
         }
       
     }
-
-    //basicly the same animation, but one can be used while moving
     IEnumerator MovingAnimationReturn(GameObject movingObject, Vector3 to, Quaternion rotation)
     {
-
         isAnimating = true;
         holdingItem = false;
         canReturn = false;
@@ -117,9 +109,6 @@ public class ItemBase : HoverSize
         yield return null;
     }
 
-
-
-
     IEnumerator MovingAnimationPickup(GameObject movingObject, GameObject to)
     {
         isAnimating = true;        
@@ -142,12 +131,9 @@ public class ItemBase : HoverSize
             yield return null;
         }
 
-        isAnimating = false;
         transform.position = to.transform.position;
+        isAnimating = false;
         holdingItem = true;
         yield return null;
     }
-
-   
-    
 }

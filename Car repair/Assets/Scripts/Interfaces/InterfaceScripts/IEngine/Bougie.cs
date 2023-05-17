@@ -34,7 +34,7 @@ public class Bougie : EnginePartBase, IEngine
     {
         HUDData i = HUDData.Instance;
 
-        i.SetButtonPositions(this.gameObject, i.Feest, i.Feest2, i.Feest3);
+        i.SetButtonPositions(this.gameObject, i.Feest, i.Feest2);
     }
 
     public void OnEnable()

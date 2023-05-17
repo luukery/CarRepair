@@ -5,16 +5,10 @@ using UnityEngine;
 [RequireComponent(typeof(Outline))]
 public class EnginePartBase : MonoBehaviour
 {
-    protected bool canInteract;
-    protected bool broken;
-
-    protected bool isPlaying;
-
+    protected bool canInteract, broken, isPlaying;
+    [HideInInspector] public bool hasMoved;
     protected Outline outline;
-
     Vector3 startPos;
-   [HideInInspector] public bool hasMoved;
-
    [SerializeField] protected ItemData.HoldingItem holdingRequirement;
 
 

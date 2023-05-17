@@ -6,8 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 public class HUDData : HUDManager<HUDData>
 {
-    public GameObject basicButton;
-    public GameObject canvas;
+    public GameObject basicButton, canvas;
     public CharacterMovement characterMovement;
 
     List<Vector2> buttonPos = new List<Vector2>();
@@ -19,10 +18,6 @@ public class HUDData : HUDManager<HUDData>
     void Update()
     {
       
-        if (Input.GetMouseButtonDown(1))
-        {
-            RemoveButtons();
-        }
     }
 
 
@@ -30,6 +25,7 @@ public class HUDData : HUDManager<HUDData>
     {
         if (hasSpawend)
             return;
+
         characterMovement.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

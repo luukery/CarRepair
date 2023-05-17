@@ -32,8 +32,6 @@ public class CharacterInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     
-
         if (hit.transform)
         {
           //  print(hit.transform.name);
@@ -94,7 +92,7 @@ public class CharacterInteraction : MonoBehaviour
                         else //you can't do anything with it
                         {
                             ii.hoverOver.GetComponent<Wheel>().canSelect = false;
-                        }
+                        }  
                     }
                   
                     break;

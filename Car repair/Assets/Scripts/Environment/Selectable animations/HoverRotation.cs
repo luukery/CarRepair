@@ -121,19 +121,4 @@ public class HoverRotation : MonoBehaviour
 
     }
 
-
-    float Difference(float a, float b)
-    {
-        float cout;
-
-        cout = Mathf.Max(b, a) - Mathf.Min(a, b);
-
-        if (cout > 360)
-        {
-            cout -= 360;
-        }
-        print(cout);
-        return cout;
-    }
-
 }
