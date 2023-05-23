@@ -36,6 +36,12 @@ public class CharacterInteraction : MonoBehaviour
         {
           //  print(hit.transform.name);
         }
+
+        //Remove in later version. This is only for the demo
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         Raycast();
       
     }    
